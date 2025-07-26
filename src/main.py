@@ -18,11 +18,11 @@ def main(page: ft.Page):
 
     # Logo y encabezado
     logo = ft.Image(
-        src="https://i.ibb.co/93HyLTMh/sanfrancisco194.jpg",
+        src="s",
         width=60, height=60, fit=ft.ImageFit.CONTAIN
     )
 
-    titulo_empresa = ft.Text("Bitacora", size=26, weight=ft.FontWeight.BOLD, color=ft.Colors.WHITE)
+    titulo_empresa = ft.Text("Bitacora - BT01", size=26, weight=ft.FontWeight.BOLD, color=ft.Colors.WHITE)
     titulo = ft.Text("Movimientos", size=28, weight=ft.FontWeight.BOLD, color=ft.Colors.WHITE)
 
     txt_fecha = ft.TextField(label="Fecha", read_only=True, width=150,
@@ -39,7 +39,8 @@ def main(page: ft.Page):
 
     fecha_btn = ft.ElevatedButton("Fecha",
                                   icon=ft.icons.CALENDAR_MONTH,
-                                  on_click=lambda e: page.open(date_picker_fecha))
+                                  on_click=lambda e: page.open(date_picker_fecha),
+                                  width=150, height=50)
 
     buscar_btn = ft.ElevatedButton("Buscar",
                                    width=300, height=40, icon=ft.icons.SEARCH,
