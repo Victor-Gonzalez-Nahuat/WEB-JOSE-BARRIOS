@@ -64,8 +64,8 @@ def main(page: ft.Page):
     tabla = ft.DataTable(
         columns=[
             ft.DataColumn(ft.Text("Hora", weight=ft.FontWeight.BOLD)),
-            ft.DataColumn(ft.Text("Cajero", weight=ft.FontWeight.BOLD)),
-            ft.DataColumn(ft.Text("Turno", weight=ft.FontWeight.BOLD)),
+            ft.DataColumn(ft.Text("Cj", weight=ft.FontWeight.BOLD)),
+            ft.DataColumn(ft.Text("Tn", weight=ft.FontWeight.BOLD)),
             ft.DataColumn(ft.Text("Cheque", weight=ft.FontWeight.BOLD)),
             ft.DataColumn(ft.Text("Movimiento", weight=ft.FontWeight.BOLD)),
         ],
@@ -114,11 +114,30 @@ def main(page: ft.Page):
                                 ft.DataCell(ft.Text(r.get("hora", ""))),
                                 ft.DataCell(ft.Text(r.get("cajero", ""))),
                                 ft.DataCell(ft.Text(r.get("turno", ""))),
-                                ft.DataCell(ft.Text(r.get("cheque", "---"))),
-                                ft.DataCell(ft.Text(r.get("movimiento", ""))),
+                                ft.DataCell(
+                                    ft.Container(  # 👈 Contenedor para dar altura y permitir wrap
+                                        content=ft.Text(
+                                            r.get("cheque", "---"),
+                                            no_wrap=False,        # Permite salto de línea
+                                            max_lines=2,          # Máximo de líneas
+                                            size=14
+                                        ),
+                                    )
+                                ),
+                                ft.DataCell(
+                                    ft.Container(
+                                        content=ft.Text(
+                                            r.get("movimiento", ""),
+                                            no_wrap=False,
+                                            max_lines=2,          # Aquí damos más líneas porque “movimiento” puede ser más largo
+                                            size=14
+                                        ),
+                                    )
+                                ),
                             ]
                         )
                     )
+
                 page.update()
             else:
                 print("Error en la API:", response.status_code)
@@ -136,7 +155,7 @@ def main(page: ft.Page):
             encabezado,
             loader,
             tabla_container,
-        ], spacing=20, expand=True)
+        ], spacing=20, expand=True, scroll=ft.ScrollMode.AUTO)
     )
     buscar_bitacora(None)
 
