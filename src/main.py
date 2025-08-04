@@ -1,5 +1,5 @@
 import flet as ft
-from datetime import datetime
+from datetime import datetime, date
 import requests
 import pytz
 
@@ -34,7 +34,7 @@ def main(page: ft.Page):
         txt.value = datetime.fromisoformat(nueva_fecha).strftime("%d-%m-%Y")
         page.update()
 
-    date_picker_fecha = ft.DatePicker(on_change=lambda e: actualizar_fecha(txt_fecha, e.data))
+    date_picker_fecha = ft.DatePicker(on_change=lambda e: actualizar_fecha(txt_fecha, e.data), value=date.today())
     page.overlay.append(date_picker_fecha)
 
     fecha_btn = ft.ElevatedButton("Fecha",
@@ -119,7 +119,7 @@ def main(page: ft.Page):
                                         content=ft.Text(
                                             r.get("cheque", "---"),
                                             no_wrap=False,        # Permite salto de línea
-                                            max_lines=2,          # Máximo de líneas
+                                            max_lines=1,          # Máximo de líneas
                                             size=14
                                         ),
                                     )
@@ -129,7 +129,7 @@ def main(page: ft.Page):
                                         content=ft.Text(
                                             r.get("movimiento", ""),
                                             no_wrap=False,
-                                            max_lines=2,          # Aquí damos más líneas porque “movimiento” puede ser más largo
+                                            max_lines=1,          # Aquí damos más líneas porque “movimiento” puede ser más largo
                                             size=14
                                         ),
                                     )
